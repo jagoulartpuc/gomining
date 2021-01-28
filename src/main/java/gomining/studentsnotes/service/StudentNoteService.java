@@ -2,12 +2,14 @@ package gomining.studentsnotes.service;
 
 import gomining.studentsnotes.domain.StudentNote;
 import gomining.studentsnotes.repository.StudentNoteRepository;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Setter
 public class StudentNoteService {
 
     @Autowired

@@ -2,6 +2,7 @@ package gomining.studentsnotes.controller;
 
 import gomining.studentsnotes.domain.StudentNote;
 import gomining.studentsnotes.service.StudentNoteService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/note")
+@Setter
 public class StudentNoteController {
 
     @Autowired
