@@ -1,4 +1,8 @@
-# gomining-test
+# Instruções para rodar:
+- Ter Java 11 instalado.
+- Rodar o servidor mongoDB local (Pode ser usado o comando "mongod" no terminal).
+- Rodar a aplicação Spring via linha de comando ou em uma IDE Java.
+- Certificar que o lombok está configurado.
 
 # Rotas da solução: 
 
