@@ -1,59 +1,51 @@
 package gomining.studentsnotes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import gomining.studentsnotes.controller.StudentNoteController;
 import gomining.studentsnotes.domain.StudentNote;
-import gomining.studentsnotes.repository.StudentNoteRepository;
-import gomining.studentsnotes.service.StudentNoteService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-//@WebMvcTest(StudentNoteController.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = StudentsNotesApplication.class)
+@WebAppConfiguration
 public class StudentNoteIntegrationTest {
 
     @Autowired
+    private WebApplicationContext context;
+
     private MockMvc mockMvc;
-
-    @Mock
-    private StudentNoteRepository repository;
-
-    @Mock
-    private StudentNoteService service;
-
-    @InjectMocks
-    private StudentNoteController controller;
 
     @Before
     public void setup() {
-        repository = Mockito.mock(StudentNoteRepository.class);
-        service = Mockito.mock(StudentNoteService.class);
-        service.setRepository(repository);
-        controller.setService(service);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = webAppContextSetup(context)
+                .build();
     }
 
     @Test
-    public void StudentNoteAppShouldPostNewNote() throws Exception {
+    public void studentNoteApiShouldReturn200toGetAllCall() throws Exception {
+        mockMvc.perform(get("/note/all")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200));
+    }
+
+    @Test
+    public void StudentNoteApiShouldPostNewNoteAndReturn200() throws Exception {
         StudentNote studentNote = new StudentNote();
         String id = "534bhj34b3";
         studentNote.setId(id);
@@ -70,7 +62,5 @@ public class StudentNoteIntegrationTest {
                 .contentType("application/json")
                 .content(json))
                 .andExpect(status().isOk());
-        Assert.assertEquals(studentNote.getId(), repository.findById(id).orElseThrow().getId());
     }
-
 }

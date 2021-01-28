@@ -1,0 +1,10 @@
+gomining/studentsnotes/repository/StudentNoteRepository.java
+ gomining.studentsnotes.repository.StudentNoteRepository
+gomining/studentsnotes/StudentsNotesApplication.java
+ gomining.studentsnotes.StudentsNotesApplication
+gomining/studentsnotes/domain/StudentNote.java
+ gomining.studentsnotes.domain.StudentNote
+gomining/studentsnotes/controller/StudentNoteController.java
+ gomining.studentsnotes.controller.StudentNoteController
+gomining/studentsnotes/service/StudentNoteService.java
+ gomining.studentsnotes.service.StudentNoteService

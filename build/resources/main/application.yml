@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      database: student-note
+      authentication-database: admin
+      port: 27017
+      host: localhost
